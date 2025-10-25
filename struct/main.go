@@ -13,4 +13,6 @@ func main() {
 	}
 
 	log.Println("FirstName :", user.FirstName, "LastName :", user.LastName, "Age:", user.Age)
+	log.Println("Printing using receiver and function")
+	log.Println("FirstName: ", user.PrintFirstName())
 }

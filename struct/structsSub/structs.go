@@ -9,3 +9,7 @@ type User struct {
 	Age         int
 	DateofBirth time.Time
 }
+
+func (m *User) PrintFirstName() string {
+	return m.FirstName
+}
