@@ -2,7 +2,8 @@ package main
 
 import (
 	"log"
-	"struct/structsSub"
+
+	"github.com/aishsanal/learning-go/struct/structsSub"
 )
 
 func main() {
