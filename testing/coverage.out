@@ -1,0 +1,7 @@
+mode: set
+github.com/aishsanal/learning-go/testing/main.go:8.13,10.18 2 0
+github.com/aishsanal/learning-go/testing/main.go:10.18,13.3 2 0
+github.com/aishsanal/learning-go/testing/main.go:14.2,14.45 1 0
+github.com/aishsanal/learning-go/testing/main.go:17.44,20.12 2 1
+github.com/aishsanal/learning-go/testing/main.go:20.12,22.3 1 1
+github.com/aishsanal/learning-go/testing/main.go:22.8,24.3 1 1
