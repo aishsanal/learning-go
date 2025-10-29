@@ -1,14 +1,33 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 )
 
 const portNumber = ":8080"
 
-func home(w http.ResponseWriter, r *http.Request) {
+func main() {
+	http.HandleFunc("/", Home)
+	http.HandleFunc("/about", About)
+
+	fmt.Printf("Starting application on port %s", portNumber)
+	http.ListenAndServe(portNumber, nil)
+}
+
+// func main() {
+// 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+// 		n, err := fmt.Fprintf(w, "Hello, world!!")
+// 		if err != nil {
+// 			fmt.Println(err)
+// 		}
+// 		fmt.Println("Number of bytes printed:", n)
+// 	})
+
+// 	_ = http.ListenAndServe(":8080", nil)
+// }
+
+/*func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "This is the home page")
 }
 
@@ -38,24 +57,4 @@ func divideValues(x, y float32) (float32, error) {
 func add(x, y int) int {
 	return x + y
 }
-
-func main() {
-	http.HandleFunc("/", home)
-	http.HandleFunc("/about", about)
-	http.HandleFunc("/divide", divide)
-
-	fmt.Printf("Starting application on port %s", portNumber)
-	http.ListenAndServe(portNumber, nil)
-}
-
-// func main() {
-// 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-// 		n, err := fmt.Fprintf(w, "Hello, world!!")
-// 		if err != nil {
-// 			fmt.Println(err)
-// 		}
-// 		fmt.Println("Number of bytes printed:", n)
-// 	})
-
-// 	_ = http.ListenAndServe(":8080", nil)
-// }
+*/
