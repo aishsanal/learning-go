@@ -2,14 +2,30 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
+	"github.com/aishsanal/learning-go/hello-world/pkg/config"
 	"github.com/aishsanal/learning-go/hello-world/pkg/handlers"
 )
 
 const portNumber = ":8080"
 
 func main() {
+
+	ts, err := handlers.CreateTemplateCache()
+	if err != nil{
+		log.Fatal("cannot start application")
+	}
+
+	var app config.AppConfig
+	app.TemplateCache = ts
+	app.UseCache = false
+	handlers.SetConfig(app)
+
+	repository := *handlers.CreateRepository(app)
+	handlers.SetRepository(&repository)
+
 	http.HandleFunc("/", handlers.Home)
 	http.HandleFunc("/about", handlers.About)
 

@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/aishsanal/learning-go/hello-world/pkg/config"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
@@ -16,20 +18,44 @@ func About(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "about.page.tmpl")
 }
 
+var appConfig config.AppConfig
+
 func renderTemplate(w http.ResponseWriter, t string) {
-	cache, err := createTemplateCache()
-	if err != nil {
-		log.Fatal(err)
+	var template *template.Template
+	if appConfig.UseCache {
+		template = appConfig.TemplateCache[t]
+	} else {
+		cache, _ := CreateTemplateCache()
+		template = cache[t]
 	}
 
-	template := cache[t]
-	err = template.Execute(w, nil)
+	err := template.Execute(w, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func createTemplateCache() (map[string]*template.Template, error) {
+func SetConfig(a config.AppConfig) {
+	appConfig = a
+}
+
+type Repository struct {
+	app config.AppConfig
+}
+
+var repository *Repository
+
+func SetRepository(repo *Repository) {
+	repository = repo
+}
+
+func CreateRepository(cnf config.AppConfig) *Repository {
+	return &Repository{
+		app: cnf,
+	}
+}
+
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	cache := map[string]*template.Template{}
 
 	pagesPath, err := filepath.Glob("../../templates/*.page.tmpl")
