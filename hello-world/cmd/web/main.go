@@ -12,9 +12,8 @@ import (
 const portNumber = ":8080"
 
 func main() {
-
 	ts, err := handlers.CreateTemplateCache()
-	if err != nil{
+	if err != nil {
 		log.Fatal("cannot start application")
 	}
 
@@ -26,11 +25,19 @@ func main() {
 	repository := *handlers.CreateRepository(app)
 	handlers.SetRepository(&repository)
 
-	http.HandleFunc("/", handlers.Home)
-	http.HandleFunc("/about", handlers.About)
+	// http.HandleFunc("/", handlers.Home)
+	// http.HandleFunc("/about", handlers.About)
 
 	fmt.Printf("Starting application on port %s", portNumber)
-	http.ListenAndServe(portNumber, nil)
+	// http.ListenAndServe(portNumber, nil)
+
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+	log.Fatal(err)
 }
 
 // func main() {
