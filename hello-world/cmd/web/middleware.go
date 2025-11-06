@@ -14,6 +14,7 @@ func printToConsole(next http.Handler) http.Handler {
 	})
 }
 
+//NoSurf provides CSRF protection for all requests
 func NoSurf(next http.Handler) http.Handler {
 	csrfHandler := nosurf.New(next)
 
@@ -24,4 +25,9 @@ func NoSurf(next http.Handler) http.Handler {
 		SameSite: http.SameSiteLaxMode,
 	})
 	return csrfHandler
+}
+
+//Loads and saves the session on every request
+func LoadSession(next http.Handler) http.Handler {
+	return session.LoadAndSave(next)
 }
